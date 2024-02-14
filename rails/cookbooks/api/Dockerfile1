@@ -39,7 +39,7 @@ EOF
 
 RUN cd client; npm run build
 
-FROM ruby:slim AS build
+FROM ruby:3.2.3-slim-bookworm AS build
 
 RUN apt-get update &&\
     apt-get install --yes build-essential git
@@ -47,7 +47,7 @@ RUN apt-get update &&\
 RUN gem install rails
 RUN rails new demo --minimal --skip-active-record --api
 
-FROM ruby:slim
+FROM ruby:3.2.3-slim-bookworm
 
 COPY --from=build /demo /demo
 COPY --from=build /usr/local/bundle /usr/local/bundle
