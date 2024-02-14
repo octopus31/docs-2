@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1
 
-FROM ruby:slim as build
+FROM ruby:3.2.3-slim-bookworm as build
 
 RUN apt-get update &&\
     apt-get install --yes build-essential git pkg-config redis
@@ -8,7 +8,7 @@ RUN apt-get update &&\
 RUN gem install rails
 RUN rails new demo --css tailwind
 
-FROM ruby:slim
+FROM ruby:3.2.3-slim-bookworm
 
 COPY --from=build /demo /demo
 COPY --from=build /usr/local/bundle /usr/local/bundle
