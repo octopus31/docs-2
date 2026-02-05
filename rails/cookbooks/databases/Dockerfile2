@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1
 
-FROM ruby:slim as build
+FROM ruby:4.0.1-slim-trixie as build
 
 RUN apt-get update &&\
     apt-get install --yes build-essential git pkg-config redis libpq-dev
@@ -8,7 +8,7 @@ RUN apt-get update &&\
 RUN gem install rails
 RUN rails new demo --css tailwind --database postgresql
 
-FROM ruby:slim
+FROM ruby:4.0.1-slim-trixie
 
 COPY --from=build /demo /demo
 COPY --from=build /usr/local/bundle /usr/local/bundle
